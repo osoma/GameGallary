@@ -3,7 +3,7 @@ package com.example.demo.mapper;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.UserDto;
-import com.example.demo.model.User;
+import com.example.demo.entity.User;
 
 import lombok.Data;
 

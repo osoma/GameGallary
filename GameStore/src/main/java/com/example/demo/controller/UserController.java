@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.UserDto;
-import com.example.demo.model.User;
+import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 
 @RestController

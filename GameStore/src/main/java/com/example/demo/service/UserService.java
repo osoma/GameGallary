@@ -10,10 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.UserDto;
+import com.example.demo.entity.User;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.mapper.Mapper;
 import com.example.demo.mapper.UserMapper;
-import com.example.demo.model.User;
 import com.example.demo.repo.UserRepo;
 
 @Service
