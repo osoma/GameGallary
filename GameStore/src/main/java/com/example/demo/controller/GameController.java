@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -16,8 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Game;
-
+import com.example.demo.dto.GameDto;
+import com.example.demo.entity.Game;
 import com.example.demo.service.GameService;
 
 @RestController
@@ -40,27 +42,29 @@ public class GameController {
 		return new ResponseEntity<>(games,HttpStatus.OK);
 	}
 	
-	@PostMapping("/addgame")
-	public ResponseEntity<Game> addGame(@RequestBody Game game)
+	@PostMapping
+	public ResponseEntity<Void> addGame(@RequestBody @Valid GameDto gameDto)
 	{
-		Game newgame =gameService.addGame(game);
-		return new ResponseEntity<>(newgame,HttpStatus.CREATED);
+
+		return ResponseEntity.status(HttpStatus.CREATED).header("ID",gameService.addGame(gameDto).getId().toString()).build();
 	}
 	
-	@GetMapping("/findgame/{id}")
-	public ResponseEntity<Game> findGameById(@PathVariable Long id )
+	@GetMapping("/{id}")
+	public ResponseEntity<Game> findGameById(@PathVariable Long id ) //throws NotFoundException
 	{
 		Game newgame=gameService.findGameById(id);
+		
 		return new ResponseEntity<Game>(newgame,HttpStatus.OK);
 	}
-	@PutMapping("/updategame")
-	public ResponseEntity<Game> updateGame (@RequestBody Game game)
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> updateGame (@RequestBody GameDto gameDto)
 	{
-		Game newGAme= gameService.updateGame(game);
-		return new ResponseEntity<Game>(newGAme,HttpStatus.OK);
+		//Game newGAme= gameService.findGameById();
+		gameService.updateGame(gameDto);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteGame(@PathVariable("id") Long id)
 	{
 		
